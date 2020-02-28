@@ -12,7 +12,11 @@ import { Mesh } from 'three/src/objects/Mesh';
 import { Vector2 } from 'three/src/math/Vector2';
 
 export default class Canvas {
-  constructor() {
+  constructor (elementId) {
+    // elementIdのついたDOM要素を取得
+    this.element = document.getElementById(elementId)
+    const rect = this.element.getBoundingClientRect()
+
     //  ウィンドウサイズ
     this.w = window.innerWidth
     this.h = window.innerHeight
@@ -55,17 +59,24 @@ export default class Canvas {
     this.scene.add(this.light)
 
     // 立方体のジオメトリを作成（幅、高さ、奥行き）
-    const geo = new BoxGeometry(300, 300, 300)
+    const depth = 300
+    const geo = new BoxGeometry(rect.width, rect.height, depth)
 
     // マテリアルを作成
     const mat = new MeshLambertMaterial({ color: 0xffffff })
 
     // ジオメトリとマテリアルからメッシュを作成
     this.mesh = new Mesh(geo, mat)
+
+    // ウィンドウ中心からDOMRect中心へのベクトルを求めてオフセットする
+    const center = new Vector2(rect.x + rect.width / 2, rect.y + rect.height / 2)
+    const diff = new Vector2(center.x - this.w / 2, center.y - this.h / 2)
+    this.mesh.position.set(diff.x, -diff.y, -depth / 2) // zは半分前に出ているのを下げる
+    this.offsetY = this.mesh.position.y
     　
     // rotationの角度の単位はラジアン
-    this.mesh.rotation.x = Math.PI / 4 // PI = 180° なので 180 / 4 = 45°
-    this.mesh.rotation.y = Math.PI / 4 // THREE.Math.DEG2RAD * 45で度数法で書ける
+    // this.mesh.rotation.x = Math.PI / 4 // PI = 180° なので 180 / 4 = 45°
+    // this.mesh.rotation.y = Math.PI / 4 // THREE.Math.DEG2RAD * 45で度数法で書ける
 
     // メッシュをシーンに追加
     this.scene.add(this.mesh)
@@ -104,18 +115,19 @@ export default class Canvas {
     // this.mesh.rotation.y += 0.01    
 
     // performance.now()は「ページ表示時からの経過時間がミリ秒」が帰ってくる
-    const sec = performance.now() / 1000 // ミリ秒から秒に変換
+    // const sec = performance.now() / 1000 // ミリ秒から秒に変換
 
     // 1秒で45°回転する
-    this.mesh.rotation.x = sec * (Math.PI / 4)
-    this.mesh.rotation.y = sec * (Math.PI / 4)
+    // this.mesh.rotation.x = sec * (Math.PI / 4)
+    // this.mesh.rotation.y = sec * (Math.PI / 4)
 
     // ライトの位置をマウスの位置に変更
     this.light.position.x = this.mouse.x
     this.light.position.y = this.mouse.y
 
     // メッシュの位置をスクロールに追従させる
-    this.mesh.position.y = this.scrollY * 0.5
+    // this.mesh.position.y = this.scrollY * 0.5 // DOMよりもスクロールを送らせてパララックス風にする
+    this.mesh.position.y = this.offsetY + this.scrollY // DOMの大きさと位置に追従するように設定
 
     this.renderer.render(this.scene, this.camera)
   }
