@@ -41,7 +41,7 @@ export default class Canvas {
     this.targetPercent = 0.0;
 
     const loader = new TextureLoader();// テクスチャローダーを作成
-    const texture = loader.load('/resource/img/img.jpg');// テクスチャ読み込み
+    const texture = loader.load('../resource/img/img.jpg');// テクスチャ読み込み
 
     // uniform変数を定義
     this.uniforms = {
