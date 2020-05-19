@@ -9,15 +9,15 @@ import Page06  from './06_shader_texture';
 
 // ドキュメントを読み込んだらページごとの処理を実行
 document.addEventListener('DOMContentLoaded', () => {
-  const path = location.pathname.split('/')[1];
+  const path = location.pathname;
   console.log(path);
 
-  if(path === '00_empty')               new Page00();
-  else if(path === '00_shader_empty')   new Page00s();
-  else if(path === '01_rendering')      new Page01();
-  else if(path === '02_animation')      new Page02();
-  else if(path === '03_interaction')    new Page03();
-  else if(path === '04_linkWithDOM')    new Page04();
-  else if(path === '05_shader')         new Page05();
-  else if(path === '06_shader_texture') new Page06();
+  if(path.indexOf('00_empty') >= 0)               new Page00();
+  else if(path.indexOf('00_shader_empty') >= 0)   new Page00s();
+  else if(path.indexOf('01_rendering') >= 0)      new Page01();
+  else if(path.indexOf('02_animation') >= 0)      new Page02();
+  else if(path.indexOf('03_interaction') >= 0)    new Page03();
+  else if(path.indexOf('04_linkWithDOM') >= 0)    new Page04();
+  else if(path.indexOf('05_shader') >= 0)         new Page05();
+  else if(path.indexOf('06_shader_texture') >= 0) new Page06();
 });
