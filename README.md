@@ -1,26 +1,9 @@
 # threejs workshop
 
-## DEMO
+# DEMO
 https://yuki-sakaguchi.github.io/threejs-workshop/public/
 
-This is [three.js v98](https://github.com/mrdoob/three.js/releases/tag/r98) tutorial.  
-
-install  
-`npm install`  
-  
-watch  
-`npm run watch`  
-
-watch & serve  
-`npm start`  
-
-build  
-`npm run build`  
-
----
-
 # 学んだこと
-
 ## 第０回　基礎
 https://qiita.com/watabo_shi/items/f7c559c3cdbcdd0f2629
 
@@ -201,3 +184,21 @@ https://qiita.com/watabo_shi/items/2fc671f2147e799787f9
   * チャンネルシフト
   * モザイク
   * ゆらゆら
+
+
+# 開発
+This is [three.js v98](https://github.com/mrdoob/three.js/releases/tag/r98) tutorial.  
+
+install  
+`npm install`  
+  
+watch  
+`npm run watch`  
+
+watch & serve  
+`npm start`  
+
+build  
+`npm run build`  
+
+---
